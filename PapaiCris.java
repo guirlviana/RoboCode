@@ -11,12 +11,11 @@ public class PapaiCris extends Robot
 {
 
 	public void run() {
-		
+	
 		while(true) {
-
 			ahead(100);
 			turnGunRight(360);
-			back(100);
+			back(70);
 			turnGunRight(360);
 			
 		}
@@ -40,26 +39,25 @@ public class PapaiCris extends Robot
 	/**
 	 * onHitByBullet: What to do when you're hit by a bullet
 	 */
-	public void onHitByBullet(HitByBulletEvent e) {
-		// Replace the next line with any behavior you would like
-		turnLeft(100);
-		ahead(100);
-		turnRight(100);
-		ahead(100);
-		
-		
+
+	public void onHitByBullet(HitByBulletEvent e){
+	double energy = getEnergy();
+    double bearing = e.getBearing(); //Get the direction which is arrived the bullet.
+    if(energy < 100){ // if the energy is low, the robot go away from the enemy
+        turnRight(-bearing); //This isn't accurate but release your robot.
+        ahead(100); //The robot goes away from the enemy.
+    }else{
+        turnRight(360); // scan
 	}
+}
 	
 	/**
 	 * onHitWall: What to do when you hit a wall
 	 */
 	public void onHitWall(HitWallEvent e) {
-		// Replace the next line with any behavior you would like
-		back(100);
-		turnRight(100);
-		ahead(100);
-		
-		
-		
+    double bearing2 = e.getBearing(); 
+    turnRight(-bearing2);
+    ahead(100);
+			
 	}	
 }
