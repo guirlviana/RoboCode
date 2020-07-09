@@ -9,21 +9,11 @@ import robocode.*;
  */
 public class PapaiCris extends Robot
 {
-	/**
-	 * run: PapaiCris's default behavior
-	 */
+
 	public void run() {
-		// Initialization of the robot should be put here
-
-		// After trying out your robot, try uncommenting the import at the top,
-		// and the next line:
-
-		 // body,gun,radar
-
-		// Robot main loop
 		
 		while(true) {
-			// Replace the next 4 lines with any behavior you would like
+
 			ahead(100);
 			turnGunRight(360);
 			back(100);
@@ -32,12 +22,19 @@ public class PapaiCris extends Robot
 		}
 	}
 
-	/**
-	 * onScannedRobot: What to do when you see another robot
-	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
-		// Replace the next line with any behavior you would like
-		fire(1);
+	 double distance = e.getDistance(); //get the distance of the scanned robot
+    if(distance > 800) //this conditions adjust the fire force according the distance of the scanned robot.
+        fire(5);
+    else if(distance > 600 && distance <= 800)
+        fire(4);
+    else if(distance > 400 && distance <= 600)
+        fire(3);
+    else if(distance > 200 && distance <= 400)
+        fire(2);
+    else if(distance < 200)
+        fire(1);
+		
 	}
 
 	/**
