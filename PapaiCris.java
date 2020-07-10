@@ -1,5 +1,6 @@
 package Cr7;
 import robocode.*;
+
 //import java.awt.Color;
 
 // API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
@@ -9,21 +10,33 @@ import robocode.*;
  */
 public class PapaiCris extends Robot
 {
+	boolean peek;
+	double moveAmount; 
 
 	public void run() {
-	
-		while(true) {
-			ahead(100);
-			turnGunRight(360);
-			back(70);
-			turnGunRight(360);
-			
+
+		// Captura o tamanho do campo de batalha.
+		moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
+		peek = false;// Começa não verificando
+		// Vira a esquerda para ir até a parede.
+		turnLeft(getHeading() % 90);
+		ahead(moveAmount);
+		// Movimenta a mira para direita e ativa a verificação.
+		peek = true;
+		turnGunRight(90);
+		turnRight(90);
+
+		while (true) {	
+			peek = true;// Verifica até movimentar pela parede
+			ahead(moveAmount);// Move pela parede
+			peek = false;// Não verifica até virar para proxima parede
+			turnRight(90);// Vira para proxima parede
 		}
 	}
 
 	public void onScannedRobot(ScannedRobotEvent e) {
-	 double distance = e.getDistance(); //get the distance of the scanned robot
-    if(distance > 800) //this conditions adjust the fire force according the distance of the scanned robot.
+	 double distance = e.getDistance(); //Pega a distância
+    if(distance > 800) //reajusta a força
         fire(5);
     else if(distance > 600 && distance <= 800)
         fire(4);
@@ -36,28 +49,17 @@ public class PapaiCris extends Robot
 		
 	}
 
-	/**
-	 * onHitByBullet: What to do when you're hit by a bullet
-	 */
-
-	public void onHitByBullet(HitByBulletEvent e){
-	double energy = getEnergy();
-    double bearing = e.getBearing(); //Get the direction which is arrived the bullet.
-    if(energy < 100){ // if the energy is low, the robot go away from the enemy
-        turnRight(-bearing); //This isn't accurate but release your robot.
-        ahead(100); //The robot goes away from the enemy.
-    }else{
-        turnRight(360); // scan
+	public void onHitRobot(HitRobotEvent e) {
+	
+		if (e.getBearing() > -90 && e.getBearing() < 90) {// Se estiver proximo 
+			back(100);
+		} 
+		else { // Se estiver longe
+			ahead(100);
+		}
 	}
+
+
 }
 	
-	/**
-	 * onHitWall: What to do when you hit a wall
-	 */
-	public void onHitWall(HitWallEvent e) {
-    double bearing2 = e.getBearing(); 
-    turnRight(-bearing2);
-    ahead(100);
-			
-	}	
-}
+
