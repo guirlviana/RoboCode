@@ -1,7 +1,6 @@
 package Cr7;
 import robocode.*;
-
-//import java.awt.Color;
+import java.awt.Color;
 
 // API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
 
@@ -14,7 +13,10 @@ public class PapaiCris extends Robot
 	double moveAmount; 
 
 	public void run() {
-
+		setBodyColor(Color.black);
+		setGunColor(Color.black);
+		setRadarColor(Color.white);
+		setBulletColor(Color.green);
 		// Captura o tamanho do campo de batalha.
 		moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
 		peek = false;// Começa não verificando
