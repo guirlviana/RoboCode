@@ -16,14 +16,14 @@ public class PapaiCris extends Robot
 		setBodyColor(Color.black);
 		setGunColor(Color.black);
 		setRadarColor(Color.white);
-		setBulletColor(Color.green);
+		setBulletColor(Color.red);
 		// Captura o tamanho do campo de batalha.
 		moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
 		peek = false;// Começa não verificando
 		// Vira a esquerda para ir até a parede.
 		turnLeft(getHeading() % 90);
 		ahead(moveAmount);
-		// Movimenta a mira para direita e ativa a verificação.
+		// Movimenta a mira e o eixo para direita e ativa a verificação.
 		peek = true;
 		turnGunRight(90);
 		turnRight(90);
@@ -31,7 +31,6 @@ public class PapaiCris extends Robot
 		while (true) {	
 			peek = true;// Verifica até movimentar pela parede
 			ahead(moveAmount);// Move pela parede
-			peek = false;// Não verifica até virar para proxima parede
 			turnRight(90);// Vira para proxima parede
 		}
 	}
@@ -48,7 +47,11 @@ public class PapaiCris extends Robot
         fire(2);
     else if(distance < 200)
         fire(1);
+	if (peek){ // se verdadeiro retorna o scan()
+		scan();
+	}
 		
+
 	}
 
 	public void onHitRobot(HitRobotEvent e) {
@@ -60,7 +63,16 @@ public class PapaiCris extends Robot
 			ahead(100);
 		}
 	}
-
+	
+	public void onWin(WinEvent e) {
+		for (int i = 0; i < 50; i++) {
+			fire(1);
+			turnRight(360);
+			fire(1);
+			turnLeft(360);
+			fire(1);
+		}
+	}
 
 }
 	
