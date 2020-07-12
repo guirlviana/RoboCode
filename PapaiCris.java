@@ -2,11 +2,17 @@ package Cr7;
 import robocode.*;
 import java.awt.Color;
 
-// API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
+
 
 /**
- * PapaiCris - a robot by (your name here)
+ * PapaiCris - a robot by Guilherme Viana 
  */
+/**
+ * PapaiCris - a sample robot by Guilherme Viana.
+ * <p>
+ * This robot moves on walls.
+ */
+
 public class PapaiCris extends Robot
 {
 	boolean peek;
@@ -47,9 +53,8 @@ public class PapaiCris extends Robot
         fire(2);
     else if(distance < 200)
         fire(1);
-	if (peek){ // se verdadeiro retorna o scan()
-		scan();
-	}
+
+	scan();
 		
 
 	}
