@@ -2,8 +2,6 @@ package Cr7;
 import robocode.*;
 import java.awt.Color;
 
-
-
 /**
  * PapaiCris - a robot by Guilherme Viana 
  */
@@ -33,15 +31,28 @@ public class PapaiCris extends Robot
 		peek = true;
 		turnGunRight(90);
 		turnRight(90);
-
+		int cont = 0;
 		while (true) {	
 			peek = true;// Verifica até movimentar pela parede
 			ahead(moveAmount);// Move pela parede
+			cont++;
 			turnRight(90);// Vira para proxima parede
+			if (cont % 2 == 0) { // alterna a cor quando anda na parede
+			setBodyColor(Color.black);
+			setGunColor(Color.black);
+			setRadarColor(Color.white);
+			setBulletColor(Color.red);
+			} else {
+			setBodyColor(Color.white);
+			setGunColor(Color.white);
+			setRadarColor(Color.black);
+			setBulletColor(Color.blue);	
+			}
 		}
 	}
 
 	public void onScannedRobot(ScannedRobotEvent e) {
+
 	 double distance = e.getDistance(); //Pega a distância
     if(distance > 800) //reajusta a força
         fire(5);
