@@ -63,7 +63,7 @@ public class PapaiCris extends Robot
     else if(distance > 200 && distance <= 400)
         fire(2);
     else if(distance < 200)
-        fire(1);
+        fire(2);
 
 	scan();
 		
@@ -73,9 +73,11 @@ public class PapaiCris extends Robot
 	public void onHitRobot(HitRobotEvent e) {
 	
 		if (e.getBearing() > -90 && e.getBearing() < 90) {// Se estiver proximo 
+			scan();
 			back(100);
 		} 
 		else { // Se estiver longe
+			scan();
 			ahead(100);
 		}
 	}
