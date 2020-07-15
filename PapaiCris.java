@@ -57,7 +57,7 @@ public class PapaiCris extends Robot
     if(distance > 800) //reajusta a força
         fire(5);
     else if(distance > 600 && distance <= 800)
-        fire(4);
+        fire(5);
     else if(distance > 400 && distance <= 600)
         fire(3);
     else if(distance > 200 && distance <= 400)
